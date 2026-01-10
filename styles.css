@@ -1,0 +1,121 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  color: #E0E0CE;
+  background-color: #001427;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  background: #001427;
+  border-bottom: 1px solid #001427;
+}
+
+.navbar {
+  max-width: 1000px;
+  margin: auto;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.8rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #3C787E;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+    color: #60E1E0;
+}
+
+.resume-btn {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid #3C787E;
+  border-radius: 6px;
+  color: #3C787E;
+}
+
+.resume-btn:hover {
+  color: #60E1E0;
+  border-radius: 6px;
+  border: 1px solid #60E1E0;
+}
+
+
+.hero {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 1rem;
+  color: #f9fafb;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.subtitle {
+  font-size: 2rem;
+  color: #E0E0CE;
+}
+
+.tagline {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.section {
+  max-width: 800px;
+  margin: auto;
+  padding: 4rem 1rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.btn.primary {
+  background: #111;
+  color: white;
+}
+
+.btn.secondary {
+  border: 1px solid #111;
+  color: #111;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
