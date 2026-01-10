@@ -1,42 +1,41 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: system-ui, sans-serif;
-  line-height: 1.6;
-  color: #E0E0CE;
-  background-color: #001427;
+    font-family: system-ui, sans-serif;
+    line-height: 1.6;
+    color: #B2B8BE;
+    background-color: #001427;
 }
 
 header {
-  position: sticky;
-  top: 0;
-  background: #001427;
-  border-bottom: 1px solid #001427;
+    position: sticky;
+    top: 0;
+    background: #001427;
+    border-bottom: 1px solid #001427;
 }
 
 .navbar {
-  max-width: 1000px;
-  margin: auto;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    margin: auto;
+    padding: 2.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .nav-links {
-  list-style: none;
-  display: flex;
-  gap: 1.8rem;
+    list-style: none;
+    display: flex;
+    gap: 1.8rem;
 }
 
 .nav-links a {
-  text-decoration: none;
-  color: #3C787E;
-  font-weight: 500;
+    text-decoration: none;
+    color: #3C787E;
+    font-weight: 500;
 }
 
 .nav-links a:hover {
@@ -44,78 +43,128 @@ header {
 }
 
 .resume-btn {
-  padding: 0.4rem 0.9rem;
-  border: 1px solid #3C787E;
-  border-radius: 6px;
-  color: #3C787E;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid #3C787E;
+    border-radius: 6px;
+    color: #3C787E;
 }
 
 .resume-btn:hover {
-  color: #60E1E0;
-  border-radius: 6px;
-  border: 1px solid #60E1E0;
+    color: #60E1E0;
+    border-radius: 6px;
+    border: 1px solid #60E1E0;
 }
 
 
 .hero {
-  min-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 1rem;
-  color: #f9fafb;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 1rem;
+    color: #F2F3F4;
 }
 
 .hero h1 {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.main {
+    max-width: 1000px;
+    margin: auto;
+    padding: 4rem 1rem;
 }
 
 .subtitle {
-  font-size: 2rem;
-  color: #E0E0CE;
+    font-size: 1.8rem;
+    color: #D1D9E1;
 }
 
 .tagline {
-  font-size: 1.1rem;
-  color: #666;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
+    font-size: 1.1rem;
+    color: #B2B8BE;
 }
 
 .section {
-  max-width: 800px;
-  margin: auto;
-  padding: 4rem 1rem;
+    max-width: 900px;
+    margin: auto;
+    padding: 4rem 1rem;
 }
 
 .btn {
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.btn.primary {
-  background: #111;
-  color: white;
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: 1rem;
 }
 
 .btn.secondary {
-  border: 1px solid #111;
-  color: #111;
+    border: 1px solid #111;
+    color: #111;
 }
 
 .fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.logo {
+    font-weight: bold;
+    color: #F2F3F4;
 }
 
 .fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: block;
+    margin: 1.5rem auto 1.5rem auto;
+    object-fit: cover;
+    border: 3px solid #3C787E;
+    justify-content: center;
+}
+
+
+.contact-links {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1.5rem;
+    font-weight: 500;
+    justify-content: center;
+}
+
+.contact-links a {
+    color: #3C787E;
+    text-decoration: none;
+}
+
+.contact-links a:hover {
+    text-decoration: none;
+    color: #60E1E0
+}
+
+.btn.primary {
+    background: #60E1E0;
+    color: #001427;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(96, 225, 224, 0.25);
 }
