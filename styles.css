@@ -4,6 +4,8 @@
     box-sizing: border-box;
 }
 
+/* Body */
+
 body {
     font-family: system-ui, sans-serif;
     line-height: 1.6;
@@ -11,12 +13,22 @@ body {
     background-color: #001427;
 }
 
+/* Header */
+
 header {
     position: sticky;
     top: 0;
+    z-index: 1000;
     background: #001427;
     border-bottom: 1px solid #001427;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+header.hide {
+  transform: translateY(-100%);
+}
+
+/* Navbar */
 
 .navbar {
     margin: auto;
@@ -55,6 +67,7 @@ header {
     border: 1px solid #60E1E0;
 }
 
+/* Hero Section */
 
 .hero {
     min-height: 90vh;
@@ -96,6 +109,7 @@ header {
     max-width: 900px;
     margin: auto;
     padding: 4rem 1rem;
+    scroll-margin-top: 90vh;
 }
 
 .btn {
