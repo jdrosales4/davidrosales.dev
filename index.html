@@ -32,37 +32,83 @@
       <p class="tagline">Building efficient and scalable software solutions.</p>
     </section>
 
-    <section id="about" class="section fade-in">
+    <section id="about" class="section fade-in about">
       <h2 class="subtitle">About Me</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem
-        placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar
-        vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere.
-        Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-      </p>
-      <img src="me.jpeg" alt="David Rosales" class="profile-pic" />
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem
-        placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar
-        vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere.
-        Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-      </p>
+      <div class="about-content">
+        <img src="me.jpeg" alt="Photo of David Rosales" class="profile-pic" />
+        <div class="about-text">
+          <p>
+            I'm a Computer Science graduate from the University of Wisconsin-Madison with a strong interest
+            in software engineering, machine learning, and cybersecurity. I enjoy working on problems where
+            I can combine logical thinking with real-world impact.
+          </p>
+          <p>
+            During my time at UW-Madison, I've worked on projects involving data structures, algorithms,
+            artificial intelligence, and natural language processing. I'm especially interested in how
+            software systems are designed, optimized, and scaled in practice.
+          </p>
+          <p>
+            Outside of academics, I've gained experience working in both technical and customer-facing
+            roles, which has helped me develop strong communication skills and a collaborative mindset.
+          </p>
+        </div>
+      </div>
     </section>
 
-    <section id="projects" class="section fade-in">
+    <section id="projects" class="section fade-in projects">
       <h2 class="subtitle">Projects</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem
-        placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar
-        vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere.
-        Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-header">
+            <h3>Toxic Comment Classification</h3>
+            <span class="date">June 2025 - August 2025</span>
+
+          </div>
+          <p class="project-meta">Python · NLP · Machine Learning · Naive Bayes · TF-IDF</p>
+
+          <ul class="project-bullets">
+            <li>Built a multi-label toxicity classification system using the Jigsaw dataset (~159K comments) to detect
+              six categories of online abuse.</li>
+            <li>Designed an NLP preprocessing pipeline with tokenization, lemmatization, and TF-IDF feature extraction.
+            </li>
+            <li>Trained independent Multinomial Naive Bayes classifiers to balance interpretability, scalability, and
+              inference speed.</li>
+            <li>Achieved an average accuracy of 97.2%, with threat detection reaching 99.4% accuracy.</li>
+            <li>Evaluated tradeoffs between probabilistic and neural approaches, prioritizing models suitable for
+              real-time moderation systems.</li>
+            <li>Analyzed model limitations in detecting implicit toxicity and sarcasm, identifying areas for future
+              improvement.</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/yourusername/combating-online-abuse" target="_blank" class="btn secondary">
+              View GitHub
+            </a>
+            <a href="projects/CombatingOnlineAbuseReport.pdf" target="_blank" class="btn primary">
+              View Report (PDF)
+            </a>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="experience" class="section fade-in">
+    <section id="experience" class="section fade-in experience">
       <h2 class="subtitle">Experience</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem
-        placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar
-        vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere.
-        Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+      <div class="experience-card">
+        <div class="experience-header">
+          <h3>Configuration Technician I · CDW</h3>
+          <span class="date">July 2022 - July 2023</span>
+        </div>
+        <ul class="experience-bullets">
+          <li>Deployed software and system updates to laptops, desktops, and mobile devices using secure company VPNs
+            and internal configuration tools.</li>
+          <li>Ensured all devices met customer and quality standards prior to shipment in a high-volume production
+            environment.</li>
+          <li>Worked with enterprise hardware including Kronos time clocks (Chipotle), Epson receipt printers (Ulta
+            Beauty), and VR headsets (Medtronic).</li>
+          <li>Trained new hires on configuration workflows and collaborated with team members to meet tight deadlines.
+          </li>
+        </ul>
+      </div>
     </section>
 
     <section id="contact" class="section fade-in">
@@ -70,11 +116,9 @@
       <p>
         Feel free to reach out, I'm always open to connecting or collaborating.
       </p>
-
       <a href="mailto:jdros02@yahoo.com" class="btn primary">
         Contact Me
       </a>
-
       <div class="contact-links">
         <a href="https://github.com/jdrosales4" target="_blank">
           <i class="fa-brands fa-github"></i> GitHub

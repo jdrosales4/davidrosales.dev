@@ -20,15 +20,15 @@ let lastScrollY = window.scrollY;
 const header = document.querySelector("header");
 
 window.addEventListener("scroll", () => {
-  const currentScrollY = window.scrollY;
+    const currentScrollY = window.scrollY;
 
-  if (currentScrollY > lastScrollY && currentScrollY > 100) {
-    // scrolling down
-    header.classList.add("hide");
-  } else {
-    // scrolling up
-    header.classList.remove("hide");
-  }
+    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // scrolling down
+        header.classList.add("hide");
+    } else {
+        // scrolling up
+        header.classList.remove("hide");
+    }
 
-  lastScrollY = currentScrollY;
+    lastScrollY = currentScrollY;
 });
