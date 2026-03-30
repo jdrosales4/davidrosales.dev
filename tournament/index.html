@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+    font-family: Arial;
+    padding: 10px;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.player {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.meta {
+    font-size: 12px;
+    color: gray;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>Player Search</h2>
+
+<input type="text" id="search" placeholder="Search players...">
+
+<div id="playerList">Loading...</div>
+
+<script>
+let allPlayers = [];
+
+// Load your single roster file
+fetch("data/roster.html")
+  .then(res => res.text())
+  .then(html => {
+    let parser = new DOMParser();
+    let doc = parser.parseFromString(html, "text/html");
+
+    let rows = doc.querySelectorAll("tbody tr");
+
+    rows.forEach(row => {
+        let table = row.children[0]?.textContent.trim();
+        let name = row.children[1]?.textContent.trim();
+        let division = row.children[2]?.textContent.trim();
+
+        if (name) {
+            allPlayers.push({
+                name,
+                table,
+                division
+            });
+        }
+    });
+
+    renderPlayers(allPlayers);
+  });
+
+function renderPlayers(players) {
+    let container = document.getElementById("playerList");
+    container.innerHTML = "";
+
+    players.forEach(p => {
+        let div = document.createElement("div");
+        div.className = "player";
+
+        div.innerHTML = `
+            <strong>${p.name}</strong>
+            <div class="meta">
+                Table ${p.table} • ${p.division}
+            </div>
+        `;
+
+        container.appendChild(div);
+    });
+}
+
+// Search
+document.getElementById("search").addEventListener("input", function() {
+    let value = this.value.toLowerCase();
+
+    let filtered = allPlayers.filter(p =>
+        p.name.toLowerCase().includes(value)
+    );
+
+    renderPlayers(filtered);
+});
+</script>
+
+</body>
+</html>
