@@ -37,7 +37,7 @@ input {
 
 <h2>Player Search</h2>
 
-<input type="text" id="search" placeholder="Search players...">
+<input type="text" id="search" placeholder="Name...">
 
 <div id="playerList">Loading...</div>
 
@@ -72,7 +72,7 @@ fetch("data/roster.html")
 
 function renderPlayers(players) {
     let container = document.getElementById("playerList");
-    container.innerHTML = "";
+    //container.innerHTML = "";
 
     players.forEach(p => {
         let div = document.createElement("div");
