@@ -10,56 +10,45 @@
 
 <h2>Roster</h2>
 
+<div id ="viewButtons"></div>
+
 <input type="text" id="search" placeholder="Name...">
 
 <div id="playerList">Loading...</div>
 
 <script>
-let allPlayers = [];
 
-// Load your single roster file
-fetch("data/roster.html?v=1.0")
-  .then(res => res.text())
-  .then(html => {
-    let parser = new DOMParser();
-    let doc = parser.parseFromString(html, "text/html");
+function clearName(name) {
+    if (!name) return "";
+    return name.replace(/\(.*?\)/g, "").trim();
+}
 
-    let rows = doc.querySelectorAll(".players_table tbody tr");
-
-    rows.forEach(row => {
-        let table = row.children[0]?.textContent.trim();
-        let name = row.children[1]?.textContent.trim();
-        let division = row.children[2]?.textContent.trim();
-
-        if (name) {
-            allPlayers.push({
-                name,
-                table,
-                division
-            });
-        }
-    });
-
-    renderPlayers(allPlayers);
-  });
-
-function renderPlayers(players) {
+function render(data) {
     let container = document.getElementById("playerList");
     container.innerHTML = "";
 
-    players.forEach(p => {
+    data.forEach(item => {
         let div = document.createElement("div");
         div.className = "player";
 
-        div.innerHTML = `
-            <strong>${p.name}</strong>`;
-
+        if (currentView === "Roster") {
+            div.innerHTML = `<strong>${item.name}</strong>`;
+            
             // this part is optional, you can include it if you want to show the table and division info for each player
 
             //<div class="meta">
             //    Table ${p.table} • ${p.division}
             //</div>
         //;
+
+        } else {
+            div.innerHTML = `
+                <strong>${item.name}</strong>
+                <div class="meta">
+                    Table ${item.table} vs ${item.opponent || "Bye"}
+                </div>
+            `;
+        }
 
         container.appendChild(div);
     });
@@ -69,8 +58,8 @@ function renderPlayers(players) {
 document.getElementById("search").addEventListener("input", function() {
     let value = this.value.toLowerCase();
 
-    let filtered = allPlayers.filter(p =>
-        p.name.toLowerCase().includes(value)
+    let filtered = currentData.filter(item =>
+        item.name.toLowerCase().includes(value)
     );
 
     renderPlayers(filtered);
