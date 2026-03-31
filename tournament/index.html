@@ -17,73 +17,51 @@
 <div id="playerList">Loading...</div>
 
 <script>
-let allData = {};
 let currentData = [];
-let currentView = "";
+let allData = {};
+let currentView = "Roster";
 
-// 🔹 START APP
-init();
+// Load config
+fetch("data-config.json?v=" + Date.now())
+  .then(res => res.json())
+  .then(config => {
+    createButtons(config);
 
-async function init() {
-  // Always load roster first
-  await loadRoster();
+    // Load all files
+    return Promise.all(config.map(item =>
+      fetch(item.file + "?v=" + Date.now())
+        .then(res => res.text())
+        .then(html => ({ ...item, html }))
+    ));
+  })
+  .then(files => {
+    files.forEach(file => {
+      if (file.type === "roster") {
+        allData[file.label] = parseRoster(file.html);
+      } else {
+        allData[file.label] = parsePairings(file.html);
+      }
+    });
 
-  // Auto-detect rounds
-  await loadRounds();
+    // Default view
+    currentView = Object.keys(allData)[0];
+    currentData = allData[currentView];
+    render(currentData);
+  });
 
-  // Create buttons AFTER everything is loaded
-  createButtons();
-
-  // Default view
-  currentView = "Roster";
-  currentData = allData[currentView];
-  render(currentData);
-}
-
-// 🔹 LOAD ROSTER
-async function loadRoster() {
-  let res = await fetch("data/roster.html?v=" + Date.now());
-  let html = await res.text();
-
-  allData["Roster"] = parseRoster(html);
-}
-
-// 🔹 AUTO-DETECT ROUNDS
-async function loadRounds() {
-  let round = 1;
-
-  while (true) {
-    try {
-      let res = await fetch(`data/round${round}.html?v=${Date.now()}`);
-
-      if (!res.ok) break; // stop if file doesn't exist
-
-      let html = await res.text();
-
-      let label = `R${round}`;
-      allData[label] = parsePairings(html);
-
-      round++;
-    } catch (e) {
-      break;
-    }
-  }
-}
-
-// 🔹 CREATE BUTTONS
-function createButtons() {
+// 🔹 BUTTONS
+function createButtons(config) {
   let container = document.getElementById("viewButtons");
-  container.innerHTML = "";
 
-  Object.keys(allData).forEach(label => {
+  config.forEach(item => {
     let btn = document.createElement("button");
-    btn.textContent = label;
+    btn.textContent = item.label;
 
     btn.classList.add("btn");
 
     btn.onclick = () => {
-      currentView = label;
-      currentData = allData[label];
+      currentView = item.label;
+      currentData = allData[currentView];
       render(currentData);
     };
 
@@ -100,7 +78,9 @@ function parseRoster(html) {
 
   rows.forEach(row => {
     let name = row.children[1]?.textContent.trim();
-    if (name) players.push({ name });
+    if (name) {
+      players.push({ name });
+    }
   });
 
   return players;
@@ -109,13 +89,14 @@ function parseRoster(html) {
 // 🔹 PARSE PAIRINGS
 function parsePairings(html) {
   let doc = new DOMParser().parseFromString(html, "text/html");
+
+  // Only tables with class "report"
   let rows = doc.querySelectorAll("table.report tr");
 
   let pairings = [];
-  let seen = new Set();
 
   rows.forEach((row, i) => {
-    if (i === 0) return;
+    if (i === 0) return; // skip header
 
     let cols = row.children;
 
@@ -123,15 +104,22 @@ function parsePairings(html) {
     let player = cleanName(cols[1]?.textContent);
     let opponent = cleanName(cols[3]?.textContent);
 
+    if (player) {
+      pairings.push({
+        name: player,
+        opponent,
+        table
+      });
+    }
   });
 
   return pairings;
 }
 
-// 🔹 CLEAN NAME
+// 🔹 CLEAN NAME (removes record text)
 function cleanName(text) {
   if (!text) return "";
-  return text.replace(/\(.*?\)/g, "").trim();
+  return text.replace(/\([^()]*\)/g, "").trim();
 }
 
 // 🔹 RENDER
@@ -147,10 +135,7 @@ function render(data) {
       div.innerHTML = `<strong>${item.name}</strong>`;
     } else {
       div.innerHTML = `
-        <strong>${item.name}</strong>
-        <div class="meta">
-          Table ${item.table} vs ${item.opponent || "BYE"}
-        </div>
+        <strong>${item.name}</strong> <div class="meta">Table ${item.table} vs ${item.opponent || "BYE"}</div>
       `;
     }
 
