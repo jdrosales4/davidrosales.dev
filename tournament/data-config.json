@@ -1,4 +1,0 @@
-[
-    { "type": "roster", "file": "data/roster.html", "label": "Roster" },
-    { "type": "round", "file": "data/round1.html", "label": "R1" }
-]
