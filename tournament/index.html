@@ -3,7 +3,7 @@
 
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="styles.css?v=1.0" />
+<link rel="stylesheet" href="styles.css?v=" + Date.now()/>
 </head>
 
 <body>
@@ -78,6 +78,8 @@ function createButtons() {
   Object.keys(allData).forEach(label => {
     let btn = document.createElement("button");
     btn.textContent = label;
+
+    btn.classList.add("btn");
 
     btn.onclick = () => {
       currentView = label;
