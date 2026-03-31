@@ -17,52 +17,154 @@
 <div id="playerList">Loading...</div>
 
 <script>
+let allData = {};
+let currentData = [];
+let currentView = "";
 
-function clearName(name) {
-    if (!name) return "";
-    return name.replace(/\(.*?\)/g, "").trim();
+// 🔹 START APP
+init();
+
+async function init() {
+  // Always load roster first
+  await loadRoster();
+
+  // Auto-detect rounds
+  await loadRounds();
+
+  // Create buttons AFTER everything is loaded
+  createButtons();
+
+  // Default view
+  currentView = "Roster";
+  currentData = allData[currentView];
+  render(currentData);
 }
 
+// 🔹 LOAD ROSTER
+async function loadRoster() {
+  let res = await fetch("data/roster.html?v=" + Date.now());
+  let html = await res.text();
+
+  allData["Roster"] = parseRoster(html);
+}
+
+// 🔹 AUTO-DETECT ROUNDS
+async function loadRounds() {
+  let round = 1;
+
+  while (true) {
+    try {
+      let res = await fetch(`data/round${round}.html?v=${Date.now()}`);
+
+      if (!res.ok) break; // stop if file doesn't exist
+
+      let html = await res.text();
+
+      let label = `R${round}`;
+      allData[label] = parsePairings(html);
+
+      round++;
+    } catch (e) {
+      break;
+    }
+  }
+}
+
+// 🔹 CREATE BUTTONS
+function createButtons() {
+  let container = document.getElementById("viewButtons");
+  container.innerHTML = "";
+
+  Object.keys(allData).forEach(label => {
+    let btn = document.createElement("button");
+    btn.textContent = label;
+
+    btn.onclick = () => {
+      currentView = label;
+      currentData = allData[label];
+      render(currentData);
+    };
+
+    container.appendChild(btn);
+  });
+}
+
+// 🔹 PARSE ROSTER
+function parseRoster(html) {
+  let doc = new DOMParser().parseFromString(html, "text/html");
+  let rows = doc.querySelectorAll(".players_table tbody tr");
+
+  let players = [];
+
+  rows.forEach(row => {
+    let name = row.children[1]?.textContent.trim();
+    if (name) players.push({ name });
+  });
+
+  return players;
+}
+
+// 🔹 PARSE PAIRINGS
+function parsePairings(html) {
+  let doc = new DOMParser().parseFromString(html, "text/html");
+  let rows = doc.querySelectorAll("table.report tr");
+
+  let pairings = [];
+  let seen = new Set();
+
+  rows.forEach((row, i) => {
+    if (i === 0) return;
+
+    let cols = row.children;
+
+    let table = cols[0]?.textContent.trim();
+    let player = cleanName(cols[1]?.textContent);
+    let opponent = cleanName(cols[3]?.textContent);
+
+  });
+
+  return pairings;
+}
+
+// 🔹 CLEAN NAME
+function cleanName(text) {
+  if (!text) return "";
+  return text.replace(/\(.*?\)/g, "").trim();
+}
+
+// 🔹 RENDER
 function render(data) {
-    let container = document.getElementById("playerList");
-    container.innerHTML = "";
+  let container = document.getElementById("playerList");
+  container.innerHTML = "";
 
-    data.forEach(item => {
-        let div = document.createElement("div");
-        div.className = "player";
+  data.forEach(item => {
+    let div = document.createElement("div");
+    div.className = "player";
 
-        if (currentView === "Roster") {
-            div.innerHTML = `<strong>${item.name}</strong>`;
-            
-            // this part is optional, you can include it if you want to show the table and division info for each player
+    if (currentView === "Roster") {
+      div.innerHTML = `<strong>${item.name}</strong>`;
+    } else {
+      div.innerHTML = `
+        <strong>${item.name}</strong>
+        <div class="meta">
+          Table ${item.table} vs ${item.opponent || "BYE"}
+        </div>
+      `;
+    }
 
-            //<div class="meta">
-            //    Table ${p.table} • ${p.division}
-            //</div>
-        //;
-
-        } else {
-            div.innerHTML = `
-                <strong>${item.name}</strong>
-                <div class="meta">
-                    Table ${item.table} vs ${item.opponent || "Bye"}
-                </div>
-            `;
-        }
-
-        container.appendChild(div);
-    });
+    container.appendChild(div);
+  });
 }
 
-// Search
+// 🔹 SEARCH
 document.getElementById("search").addEventListener("input", function() {
-    let value = this.value.toLowerCase();
+  let value = this.value.toLowerCase();
 
-    let filtered = currentData.filter(item =>
-        item.name.toLowerCase().includes(value)
-    );
+  let filtered = currentData.filter(item =>
+    item.name.toLowerCase().includes(value)
+  );
 
-    renderPlayers(filtered);
+  render(filtered);
 });
 </script>
 
