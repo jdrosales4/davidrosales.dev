@@ -1,41 +1,14 @@
 <!DOCTYPE html>
 <html>
+    
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<style>
-body {
-    font-family: Arial;
-    padding: 10px;
-}
-
-h2 {
-    margin-bottom: 10px;
-}
-
-input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 10px;
-    font-size: 16px;
-}
-
-.player {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-}
-
-.meta {
-    font-size: 12px;
-    color: gray;
-}
-
-</style>
+<link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
 
-<h2>Player Search</h2>
+<h2>Roster</h2>
 
 <input type="text" id="search" placeholder="Name...">
 
@@ -51,7 +24,7 @@ fetch("data/roster.html")
     let parser = new DOMParser();
     let doc = parser.parseFromString(html, "text/html");
 
-    let rows = doc.querySelectorAll("tbody tr");
+    let rows = doc.querySelectorAll(".players_table tbody tr");
 
     rows.forEach(row => {
         let table = row.children[0]?.textContent.trim();
@@ -72,18 +45,21 @@ fetch("data/roster.html")
 
 function renderPlayers(players) {
     let container = document.getElementById("playerList");
-    //container.innerHTML = "";
+    container.innerHTML = "";
 
     players.forEach(p => {
         let div = document.createElement("div");
         div.className = "player";
 
         div.innerHTML = `
-            <strong>${p.name}</strong>
-            <div class="meta">
-                Table ${p.table} • ${p.division}
-            </div>
-        `;
+            <strong>${p.name}</strong>`;
+
+            // this part is optional, you can include it if you want to show the table and division info for each player
+
+            //<div class="meta">
+            //    Table ${p.table} • ${p.division}
+            //</div>
+        //;
 
         container.appendChild(div);
     });

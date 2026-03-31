@@ -1,0 +1,25 @@
+body {
+    font-family: Arial;
+    padding: 10px;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+input {
+    width: 98%;
+    padding: 12px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.player {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.meta {
+    font-size: 12px;
+    color: gray;
+}
