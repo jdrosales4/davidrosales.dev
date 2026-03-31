@@ -18,7 +18,7 @@
 let allPlayers = [];
 
 // Load your single roster file
-fetch("data/roster.html")
+fetch("data/roster.html?v=1.0")
   .then(res => res.text())
   .then(html => {
     let parser = new DOMParser();
